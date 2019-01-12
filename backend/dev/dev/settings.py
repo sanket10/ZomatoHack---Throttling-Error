@@ -25,13 +25,14 @@ SECRET_KEY = '^t(3w-n-*)xq6z4s@b44fl462b%qbl#5)e)$zcw05u4faw)hlb'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.43.140','127.0.0.1',]
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'rest_framework',
+    'heatmap',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
