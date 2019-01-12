@@ -5,3 +5,4 @@ urlpatterns = [
     path('heatmap/', include('heatmap.urls')),
     path('admin/', admin.site.urls),
 ]
+
