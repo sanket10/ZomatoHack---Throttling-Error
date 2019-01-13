@@ -23,14 +23,17 @@ def get_csv_data(special_day):
         if minute == 60:
             minute = 0
             getDate = getDate + timedelta(minutes=60)
+    
+    
     if minute == 0:
         time = getDate.strftime("%H:") + "00"
     else:
         time = getDate.strftime("%H:") + str(minute)
     
+    print("Hit Time: ", time)
     for index, row in x1.iterrows():
         block_data = row.values.tolist()
-        if block_data[0] == time:
+        if block_data[0] in time:
             return block_data[2:]
     return []
 

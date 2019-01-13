@@ -91,11 +91,13 @@ class get_heatmap(APIView):
 
         # Get Data from ML
         numerator = utils.get_csv_data(ny)
-        
+        print("numerator: ", numerator)
         # Get RealTime Driver Stats
         denominator = utils.get_driver_stats()
+        print("den: ", denominator)
 
         final_data = [n/d for n,d in zip(numerator, denominator)]
+        print ("final: ", final_data)
         lat_lon = utils.get_all_lat_lon()
         s = ""
         for d in lat_lon:
