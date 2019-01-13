@@ -45,16 +45,26 @@ class update_location(APIView):
             old_lat = driver.latitude
             old_lon = driver.longitude
 
+
+            utils.print_blocks_data()
+            print("---------------------")
             old_block = utils.find_block(old_lat, old_lon)
             new_block = utils.find_block(lat, lon)
 
-            old_block.resources = old_block.resources - 1
-            new_block.resources = new_block.resources + 1
+            weight = 1
+            if id == 1:
+                weight = 7
+            old_block.resources = old_block.resources - weight
+            new_block.resources = new_block.resources + weight
             old_block.save()
             new_block.save()
-
+            
+            s = "You moved from " + old_block.name + " to " + new_block.name + "!"
+            print("Logging Data: ", s)
             driver.latitude = lat
             driver.longitude = lon
+
+            utils.print_blocks_data()
 
             driver.save()
         except ObjectDoesNotExist:
@@ -62,7 +72,7 @@ class update_location(APIView):
             new_obj.save()
             return Response({'id': id, 'lat': lat , 'lon': lon}, status=status.HTTP_200_OK)
 
-        return Response({'status': request.data}, status=status.HTTP_200_OK)
+        return Response({'toast_text': s}, status=status.HTTP_200_OK)
 
 class get_heatmap(APIView):
     """
@@ -105,5 +115,4 @@ class get_next_data(APIView):
         """
         :return: Response containing JSON data, with all the details of single products.
         """
-        utils.shuffle_data()
         return Response({'status': ''}, status=status.HTTP_200_OK)

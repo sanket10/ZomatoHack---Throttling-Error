@@ -35,13 +35,16 @@ def get_csv_data(special_day):
     return []
 
 def find_block(lat, lon):
+    print ("New: ", lat, " ", lon)
     block_number = -1
     full = models.Block.objects.all()
     min_dist = 1000000000.000
     for obj in full:
         dist = math.sqrt(pow(abs(obj.latitude-lat),2) + pow(abs(obj.longitude-lon),2))
+        # print ("Distance to " + obj.name + str(dist))
         if dist < min_dist:
             block_number = obj
+            min_dist = dist
     
     return block_number
 
@@ -71,3 +74,8 @@ def shuffle_data():
         ret.append(obj.latitude)
         ret.append(obj.longitude)
     return ret
+
+def print_blocks_data():
+    full = models.Block.objects.all()
+    for obj in full:
+        print (obj.__dict__)
