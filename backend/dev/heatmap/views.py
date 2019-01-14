@@ -4,7 +4,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from . import models
-from . import utils
+from . import utils, intelligence
+import numpy as np
 from decimal import Decimal
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -51,7 +52,7 @@ class update_location(APIView):
             old_block = utils.find_block(old_lat, old_lon)
             new_block = utils.find_block(lat, lon)
 
-            weight = 1
+            weight = 10
             if id == 1:
                 weight = 7
             old_block.resources = old_block.resources - weight
@@ -95,6 +96,7 @@ class get_heatmap(APIView):
         # Get RealTime Driver Stats
         denominator = utils.get_driver_stats()
         print("den: ", denominator)
+        # print(intelligence.predict(np.array([2,10,10,5,200,40,14,10,6,32])))
 
         final_data = [n/d for n,d in zip(numerator, denominator)]
         print ("final: ", final_data)
